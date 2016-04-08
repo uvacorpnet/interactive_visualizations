@@ -1,0 +1,71 @@
+
+// what to do when we mouse over a bubble
+var mouseOn = function() { 
+	var circle = d3.select(this);
+
+	// transition to increase size/opacity of bubble
+	circle.transition()
+	.duration(800).style("opacity", 1)
+	.attr("r", 16).ease("elastic");
+	};
+
+// what happens when we leave a bubble?
+var mouseOff = function(d) {
+	//radius = document.querySelector('.radio:checked').value;
+	radius = document.querySelector('[name=sepal]:checked').value;
+	var circle = d3.select(this);
+	 if (radius == "reset") {
+	circle.transition()
+	.duration(800).style("opacity", .8)
+	.attr("r", "4.5").ease("elastic");
+	 } else {	
+	
+	// go back to original size and opacity
+	circle.transition()
+	.duration(800).style("opacity", .8)
+	.attr("r", function(d) { return Math.log(5000*d[radius]); }).ease("elastic");
+	}
+};
+
+
+	// run the mouseon/out functions
+	circles.on("mouseover", mouseOn);
+	circles.on("mouseout", mouseOff);
+
+	  $('circle').tipsy({ 
+		gravity: 's', 
+		html: true, 
+		title: function() {
+		  var d = this.__data__;
+		  return d.country; 
+		}
+	  });
+
+
+  
+  var legend = svg.selectAll(".legend")
+	  .data(color.domain())
+	  .enter().append("g")
+	  .attr("class", "legend")
+	  .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+
+  legend.append("rect")
+	  .attr("x", width - 18)
+	  .attr("width", 18)
+	  .attr("height", 18)
+	  .style("fill", color);
+
+
+  legend.append("text")
+	  .attr("x", width - 24)
+	  .attr("y", 9)
+	  .attr("dy", ".35em")
+	  .style("text-anchor", "end")
+	  .text(function(d) { return d; });
+
+
+
+  d3.selectAll("[name=v]").on("change", function() {
+	  var selected = this.value;
+	  display = this.checked ? "inline" : "none";

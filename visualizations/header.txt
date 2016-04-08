@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<style>
+/*set the axis line color, dot stroke, font size, and font position*/
+body {
+  font: 15px sans-serif;
+}
+
+
+
+.title {
+  position: relative;
+  text-align: left;
+  font-size: 25px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+
+
+#filter {
+  padding-left: 50px;
+  position: absolute;
+}
+
+#mark {
+  padding-left: 370px;
+  position: inherit;
+}
+
+#yAXs {
+  position: relative;
+  left: 475px;
+  bottom: 200px;
+}
+
+#xAXs {
+position: relative;
+bottom: 80px;
+left: 645px;
+
+}
+
+#label {
+position: absolute;
+bottom: 150px;
+left: 660px;
+right: 0px;
+}
+
+#label2 {
+position: absolute;
+bottom: 275px;
+left: 660px;
+right: 0px;
+}
+</style>
+
+
+<head>
+<title>Fast exploration of data quality</title>
+</head>
+<body>
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jquery.tipsy.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="tipsy.css" type="text/css"/>
+
+<script>
+
+var margin = {top: 20, right: 20, bottom: 30, left: 100},
+	width = 1100 - margin.left - margin.right,
+	height = 600 - margin.top - margin.bottom;
+
+var color = d3.scale.category10();

@@ -1,0 +1,54 @@
+
+  d3.selectAll("[name=sepal]").on("change", function(d) {
+	 radius = this.value;
+	 if (radius == "reset") {
+		 svg.selectAll(".dot2")
+		 circles.attr("r", function(d) { return 4.5; });
+	 } else {		 
+	 svg.selectAll(".dot2")
+	 console.log(radius);
+	 circles.attr("r", function(d) { return Math.log(5000*d[radius]); });
+	 }
+  });
+
+
+
+
+  d3.select("[name=xAX]").on("change", function(){
+  
+	xAxy = this.value;
+	console.log(xAxy)
+	x.domain(d3.extent(data, function(d) { return d[xAxy]; })).nice();
+
+	svg.select(".x.axis").transition().call(xAxis);
+	svg.selectAll(".dot2").transition()
+		.attr("cx", function(d) {return x(d[xAxy]);});
+	svg.selectAll(".x.axis").selectAll("text.label").text(axisNames[xAxy]);
+
+//	if ( (xAxy != 'percComp' ) &&  (xAxy != 'scale' ) &&  (xAxy != 'mu' ) &&  (xAxy != 'completeness' )){
+//		svg.select(".line").transition()
+//			.attr('y1',y(1E-6))
+//			.attr('y2',y(1))
+//			.attr('x1',x(1E-6))
+//			.attr('x2',x(1))
+//		}
+  });
+
+  d3.select("[name=yAX]").on("change", function(){
+	yAxy = this.value;
+	console.log(yAxy)
+	y.domain(d3.extent(data, function(d) { return d[yAxy]; })).nice();
+	svg.select(".y.axis").transition().call(yAxis);
+	svg.selectAll(".dot2").transition()
+		.attr("cy", function(d) {return y(d[yAxy]);});
+	svg.selectAll(".y.axis").selectAll("text.label").text(axisNames[yAxy]);
+//	if ((yAxy != 'percComp' ) &&  (yAxy != 'scale' ) &&  (yAxy != 'mu' ) &&  (yAxy != 'completeness' )){
+//		svg.select(".line").transition()
+//			.attr('y1',y(1E-6))
+//			.attr('y2',y(1))
+//			.attr('x1',x(1E-6))
+//			.attr('x2',x(1))
+//		}			
+  });
+
+});
